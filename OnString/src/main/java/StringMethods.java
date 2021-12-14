@@ -20,7 +20,7 @@ public class StringMethods {
 
     public boolean isEmpty(String s)
     {
-        return s == null ? false :s.isEmpty();
+        return s == null ? true :s.isEmpty();
     }
 
     public boolean isEqualIgnoreCase(String s1, String s2)
