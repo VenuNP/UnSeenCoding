@@ -29,7 +29,7 @@ class Task1 implements Runnable
             System.out.println(Thread.currentThread().getName() + " Thread Running... : Counter "+counter++);
         }
 
-        System.out.println(Thread.currentThread().getName() +" Thread ended :: From Task1 ");
+        System.out.println(Thread.currentThread().getName() +" Thread ended :: From Task1 $$$$$$$$ ");
 
     }
 }
