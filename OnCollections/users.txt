@@ -1,0 +1,10 @@
+5,Srinu,Hyd
+8,Akash,USA
+17,Sai Kalyan,Hyd LB-Nagar
+5,Srinu NP,Hyderabad
+1,Venu,Buddaram
+2,Umesh,Chm
+5,Srinu NP, Hyderabad
+1,Venu NP,Khammam
+3,Pranay,Chm
+17,Sai Kalyan  Konda,KGM

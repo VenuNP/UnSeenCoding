@@ -1,8 +1,12 @@
-import java.util.*;
+package OnList;
+
+import java.util.Collections;
+import java.util.LinkedList;
+import java.util.List;
 
 public class SortingInList {
     public static void main(String[] args) {
-        List<Integer> numbers =new LinkedList<>();
+        List<Integer> numbers = new LinkedList<>();
         numbers.add(11);
         numbers.add(12);
         numbers.add(1);

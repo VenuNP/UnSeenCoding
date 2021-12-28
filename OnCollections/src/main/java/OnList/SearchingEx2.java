@@ -1,3 +1,5 @@
+package OnList;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -8,13 +10,12 @@ import lombok.ToString;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
-public class ComparableSort {
+public class SearchingEx2 {
     public static void main(String[] args) throws Exception {
 
-        List<Person> personList = new ArrayList<>();
+        List<PersonSearch> personList = new ArrayList<>();
         FileReader fin = new FileReader("Persons.csv");
         BufferedReader reader = new BufferedReader(fin);
         String person = "";
@@ -22,7 +23,7 @@ public class ComparableSort {
             String[] p = person.split(",");
 
             personList.add(
-                    Person.builder()
+                    PersonSearch.builder()
                             .personId(Integer.valueOf(p[0]))
                             .peronName(p[1])
                             .build()
@@ -32,8 +33,22 @@ public class ComparableSort {
 
         personList.stream().forEach(p -> System.out.println(p.getPersonId() + " -> " + p.getPeronName()));
 
-        Collections.sort(personList);
-        System.out.println(" ~~ After Sort with comparable ID !!!");
+        PersonSearch personSearch = new PersonSearch(4, "Krithika");
+        System.out.println(" isPresent " + personSearch + " == " + personList.contains(personSearch));
+
+        personList.removeIf(p -> p.getPersonId() == 2);
+
+        /*
+
+        for(int i = 0 ; i< personList.size()  ; i++)
+        {
+            if(personList.get(i).getPersonId() == 2)
+            {
+                personList.remove(i);
+            }
+        }
+
+        */
         personList.stream().forEach(p -> System.out.println(p.getPersonId() + " -> " + p.getPeronName()));
 
 
@@ -47,15 +62,18 @@ public class ComparableSort {
 @Getter
 @Builder
 @ToString
-class Person implements Comparable<Person> {
+class PersonSearch {
     private Integer personId;
     private String peronName;
 
-
     @Override
-    public int compareTo(Person person) {
-        return this.personId.compareTo(person.getPersonId());
+    public boolean equals(Object o) {
+
+        PersonSearch personSearch = (PersonSearch) o;
+        return this.personId.equals(personSearch.personId);
     }
+
+
 }
 
 

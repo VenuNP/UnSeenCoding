@@ -1,3 +1,5 @@
+package OnList;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -8,12 +10,14 @@ import lombok.ToString;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
-public class SearchingEx2 {
+public class ComparatorSortStreamAPI {
     public static void main(String[] args) throws Exception {
 
-        List<PersonSearch> personList = new ArrayList<>();
+        List<Person3> personList = new ArrayList<>();
         FileReader fin = new FileReader("Persons.csv");
         BufferedReader reader = new BufferedReader(fin);
         String person = "";
@@ -21,7 +25,7 @@ public class SearchingEx2 {
             String[] p = person.split(",");
 
             personList.add(
-                    PersonSearch.builder()
+                    Person3.builder()
                             .personId(Integer.valueOf(p[0]))
                             .peronName(p[1])
                             .build()
@@ -29,24 +33,21 @@ public class SearchingEx2 {
 
         }
 
+        System.out.println(" ~~~ Before Sort");
         personList.stream().forEach(p -> System.out.println(p.getPersonId() + " -> " + p.getPeronName()));
 
-        PersonSearch personSearch = new PersonSearch(4, "Krithika");
-        System.out.println(" isPresent " + personSearch + " == " + personList.contains(personSearch));
+        System.out.println(" ~~~  Sort On Name");
+        Collections.sort(personList, Comparator.comparing(Person3::getPeronName));
 
-        personList.removeIf(p -> p.getPersonId() == 2);
+        personList.stream().forEach(p -> System.out.println(p.getPersonId() + " -> " + p.getPeronName()));
 
-        /*
+        System.out.println(" ~~~  Sort On Id");
+        Collections.sort(personList, Comparator.comparing(Person3::getPersonId));
+        personList.stream().forEach(p -> System.out.println(p.getPersonId() + " -> " + p.getPeronName()));
 
-        for(int i = 0 ; i< personList.size()  ; i++)
-        {
-            if(personList.get(i).getPersonId() == 2)
-            {
-                personList.remove(i);
-            }
-        }
 
-        */
+        System.out.println(" ~~~  Sort On Id & Name");
+        Collections.sort(personList, Comparator.comparing(Person3::getPersonId).thenComparing(Person3::getPeronName));
         personList.stream().forEach(p -> System.out.println(p.getPersonId() + " -> " + p.getPeronName()));
 
 
@@ -60,18 +61,9 @@ public class SearchingEx2 {
 @Getter
 @Builder
 @ToString
-class PersonSearch {
+class Person3 {
     private Integer personId;
     private String peronName;
-
-    @Override
-    public boolean equals(Object o) {
-
-        PersonSearch personSearch = (PersonSearch) o;
-        return this.personId.equals(personSearch.personId);
-    }
-
-
 }
 
 

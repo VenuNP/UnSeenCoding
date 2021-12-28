@@ -1,3 +1,4 @@
+package OnList;
 
 public class ShowPercentage {
     public static void main(String[] args) throws InterruptedException {
@@ -12,12 +13,10 @@ public class ShowPercentage {
          */
 
         int count = 1;
-        while(count <= 100)
-        {
-            synchronized (System.out)
-            {
-                System.out.print("\b\b\b"+ count++ +"%");
-                        Thread.sleep(100);
+        while (count <= 100) {
+            synchronized (System.out) {
+                System.out.print("\b\b\b" + count++ + "%");
+                Thread.sleep(100);
             }
         }
         System.out.println();
