@@ -1,4 +1,4 @@
-package OnMap;
+package OnStreamingAPI;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,10 +9,10 @@ import lombok.ToString;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
-import java.util.Comparator;
-import java.util.LinkedHashMap;
+import java.nio.CharBuffer;
 import java.util.LinkedHashSet;
-import java.util.Map;
+import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 
@@ -40,30 +40,38 @@ Remove  users belongs to Chm
 1,Venu NP,Khammam
 
  */
-public class UserMap {
+public class MapEx {
     public static void main(String[] args) throws Exception {
 
         BufferedReader reader = new BufferedReader(new FileReader("users.txt"));
-        Map<User, String> userMap = new LinkedHashMap();
+        Set<User> userSet = new LinkedHashSet<>();
+
         String line = "";
         while ((line = reader.readLine()) != null) {
             String[] user = line.split(",");
 
-            userMap.put(
+            userSet.add(
                     User.builder()
                             .id(Integer.valueOf(user[0]))
                             .name(user[1])
-                            .location(user[2]).build(), "TG");
+                            .location(user[2]).build());
         }
 
-        LinkedHashSet<User> usersSet = userMap
-                .keySet()
-                .stream()
-                .filter(user -> !user.getLocation().equals("Chm"))
-                .sorted(Comparator.comparing(User::getName)).collect(Collectors.toCollection(LinkedHashSet::new));
+        userSet.stream().forEach(System.out::println);
 
-        usersSet.stream().forEach(user -> System.out.println(user + " ::-> " + userMap.get(user)));
-        System.out.println(" Max Id ::  " + usersSet.stream().max(Comparator.comparing(User::getId)).get());
+        Set<String> names = userSet.stream().map(user -> user.getName()).collect(Collectors.toSet());
+        Set<String> locations = userSet.stream().map(User::getLocation).collect(Collectors.toSet());
+
+        System.out.println(names + " ::\n " + locations);
+
+        List<char[]> allChars = names.stream().map(n -> n.toCharArray()).collect(Collectors.toList());
+
+        Set<Character> set = new LinkedHashSet<>();
+        allChars.stream().flatMapToInt(chars -> CharBuffer.wrap(chars).chars()).forEach(e -> set.add(((char) e)));
+        System.out.println(set);
+
+        System.out.println("Max :: " + userSet.stream().mapToInt(User::getId).max().getAsInt());
+
     }
 }
 
