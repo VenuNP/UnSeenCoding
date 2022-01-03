@@ -60,7 +60,9 @@ public class MapEx {
         userSet.stream().forEach(System.out::println);
 
         Set<String> names = userSet.stream().map(user -> user.getName()).collect(Collectors.toSet());
-        Set<String> locations = userSet.stream().map(User::getLocation).collect(Collectors.toSet());
+        Set<String> locations = userSet.stream()
+                .map(User::getLocation)
+                .collect(Collectors.toSet());
 
         System.out.println(names + " ::\n " + locations);
 
