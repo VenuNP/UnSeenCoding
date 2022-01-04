@@ -3,7 +3,10 @@ package OnStreamingAPI;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.util.LinkedHashSet;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.Set;
 import java.util.function.Function;
 import java.util.stream.Collectors;
@@ -66,6 +69,33 @@ public class UserOnCollectEx {
                 userSet.stream().collect(Collectors.toMap(User::getId, Function.identity()));
         System.out.println(idUserMap);
 
+        Optional<User> user = userSet.stream().collect(
+                Collectors.reducing(
+                        (u1, u2) -> u1.getName().length() > u2.getName().length() ? u1 : u2)
+        );
+        if (user.isPresent()) {
+            System.out.println(" Longest name User " + user.get());
+        }
+
+        userSet.stream().peek(u -> System.out.println(u.getName())).collect(Collectors.toList());
+
+        userSet.stream().mapToInt(User::getId).forEach(System.out::println);
+        System.out.println("skip(3)");
+        userSet.stream().mapToInt(User::getId).skip(3).forEach(System.out::println);
+
+        String message = "1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20";
+        List<Integer> list = new LinkedList<>();
+        for (String m : message.split(",")) {
+            list.add(Integer.valueOf(m));
+        }
+
+        System.out.println("Sequential");
+        list.stream().forEach(e -> System.out.println(Thread.currentThread().getName() + " :: " + e));
+
+
+        System.out.println("Parallel ");
+        list.parallelStream().forEach(e -> System.out.println(Thread.currentThread().getName() + " :: " + e));
+        
     }
 }
 
