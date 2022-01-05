@@ -1,0 +1,28 @@
+spring.core.info: Demo On Mutliple profiles
+spring:
+  profiles:
+    active: preprod
+---
+spring:
+  config:
+    activate:
+      on-profile: qa
+
+environment: den-qa
+---
+
+spring:
+  config:
+    activate:
+      on-profile: preprod
+
+environment: den-preprod
+---
+
+spring:
+  config:
+    activate:
+      on-profile: prod
+
+environment: den-prod
+---
