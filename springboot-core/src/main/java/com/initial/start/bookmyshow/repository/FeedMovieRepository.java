@@ -25,7 +25,8 @@ public class FeedMovieRepository {
     Map<String,Theater> theaterMap = null;
     Set<String> moviesSet = null;
 
-    public  FeedMovieRepository()
+    @PostConstruct
+    public void init()
     {
         try
         {
@@ -40,10 +41,6 @@ public class FeedMovieRepository {
         {
             exp.printStackTrace();
         }
-    }
-    @PostConstruct
-    public void init()
-    {
 
         moviesLookUPMap  = new LinkedHashMap<>();
         theaterMap = new LinkedHashMap<>();
